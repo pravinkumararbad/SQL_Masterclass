@@ -138,7 +138,7 @@ SELECT * FROM unique_cats2;
 -- 		id - number, auto increments, mandatoty, and primary key
 -- 		last_name - text, mandatory
 -- 		first_name - text, mandatory
---  	middle_name - text, not mandatory
+--      middle_name - text, not mandatory
 -- 		age - number mandatory
 --  	current_status - text, mandatory, defaults to 'employed'
 CREATE TABLE employees ( id INT NOT NULL AUTO_INCREMENT, first_name VARCHAR(50) NOT NULL, middle_name VARCHAR(50), last_name VARCHAR(50) NOT NULL, age INT NOT NULL, current_status VARCHAR(10) NOT NULL DEFAULT "Employed", PRIMARY KEY (id) );
