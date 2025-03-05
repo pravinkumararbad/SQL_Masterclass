@@ -16,6 +16,10 @@ CREATE TABLE shirts
           last_worn INT
       );
 
+SHOW DATABASES;
+SELECT DATABASE();
+SHOW TABLES;
+
 -- Insert data in the shirts table in shirt_db
 INSERT INTO shirts ( article, color, shirt_size, last_worn )
 VALUES ( 't-shirt', 'white', 'S', 10 ),
