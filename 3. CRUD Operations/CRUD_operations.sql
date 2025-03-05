@@ -10,7 +10,7 @@ DROP table people;
 
 -- Create a new cats table
 CREATE TABLE cats( 
-	cat_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    cat_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(20),
     breed VARCHAR(50),
     age INT
@@ -24,12 +24,12 @@ CREATE TABLE cats(
  -- Create some data in cats table.
  INSERT INTO cats ( name, breed, age )
 	VALUES ('Ringo', 'Tabby', 4),
-		   ('Cindy', 'Maine Coon', 10),
-           ('Dumbledore', 'Maine Coon', 11),
-           ('Egg', 'Persian', 4),
-           ('Misty', 'Tabby', 13),
-           ('George Michael', 'Ragdoll', 9),
-           ('Jackson', 'Sphynx', 7);
+	       ('Cindy', 'Maine Coon', 10),
+               ('Dumbledore', 'Maine Coon', 11),
+               ('Egg', 'Persian', 4),
+               ('Misty', 'Tabby', 13),
+               ('George Michael', 'Ragdoll', 9),
+               ('Jackson', 'Sphynx', 7);
 
 -- Validate data is created successfully.
 -- Let's officially start the SELECT command.
