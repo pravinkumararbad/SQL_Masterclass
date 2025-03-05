@@ -3,7 +3,7 @@ SELECT DATABASE();
 
 -- ----------------------------------------------- SUBSTRING STRING FUNCTION -------------------------------------------- --
 -- Used to select individual parts or portians of the string.
--- Usage CONCAT( 'Hello World', startIndx [index_starts_at_1 in sql], endIndx )
+-- Usage SUBSTRING( 'Hello World', startIndx [index_starts_at_1 in sql], endIndx )
 --    SELECT SUBSTRING( 'Hello World', 1, 4 ); -> 'Hell'
 --    SELECT SUBSTRING( 'Hello World', 7 );    -> World
 --    SELECT SUBSTRING( 'Hello World', -3 );   -> rld
