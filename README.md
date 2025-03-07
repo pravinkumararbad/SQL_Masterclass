@@ -8,3 +8,4 @@ What we will cover in this?
 3. CRUD Operations
 4. CRUD Exercises
 5. SQL String Functions
+6. Refining Queried Data
