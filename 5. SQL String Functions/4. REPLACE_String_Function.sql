@@ -3,7 +3,7 @@ SELECT DATABASE();
 
 -- ----------------------------------------------- REPLACE STRING FUNCTION -------------------------------------------- --
 -- REPLACE, replaces part of string.
--- Usage REPLACE( 'Hello World', 'Hello', 'sq32&*' ) 
+-- Usage REPLACE( 'Hello World', 'Hello', 'sq32&*' )
 
 SELECT REPLACE( 'Hello World', 'Hello', 'sq32&*' ) AS replaced_string;
 
