@@ -45,3 +45,7 @@ SELECT title, released_year, pages FROM books ORDER BY released_year, pages ASC;
 -- We can use index based attributes in primary and secondary sorting criteria as well.
 -- Here 2 represents released_year ( Primary Criteria ), 3 represents pages ( secondary criteria ).
 SELECT title, released_year, pages FROM books ORDER BY 2, 3 DESC;
+
+-- Lets have a more realistic example.
+-- I want to order the author by last name. But if last name is same then take first name as criteria for sorting.
+SELECT author_lname, author_fname FROM books ORDER BY author_lname, author_fname;
