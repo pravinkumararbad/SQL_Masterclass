@@ -1,0 +1,111 @@
+-- ------------------------------------------------------------------------------ DATE, TIME and DATETIME -------------------------------------------------------------------- --
+-- DATE data type only stores the date and not time.
+-- The format in which the data stored is 'YYYY-MM-DD'.
+-- This data type is used for storing a date. E.g. Birth Date, Marriage Date, Joining Date, etc.
+
+-- DATE data type only stores the time only and not date.
+-- The format in which the datre stored in 'HH:MM:SS'.
+
+-- DATETIME data type stores both date and time.
+-- The format in which the data stored is 'YYYY-MM-DD HH:MM:SS'.
+-- This data type is used for storing data like, when someone checked in the system, when someone commented on the post etc.
+
+-- DATETIME is the most versatile among these 3 data types.
+
+-- Let's create our own  DATE data.
+USE new_testing_db;
+SELECT database();
+
+CREATE TABLE people ( name VARCHAR( 50 ), birthdate DATE, birthtime TIME, birthdt DATETIME );
+INSERT INTO people ( name, birthdate, birthtime, birthdt ) VALUES ( 'Pravin', '1998-03-12', '21:43:23', '1998-03-12 21:43:23' );
+INSERT INTO people ( name, birthdate, birthtime, birthdt ) VALUES ( 'Larry', '1994-02-13', '04:10:42', '1994-02-13 04:10:42' );
+SELECT * FROM people;
+
+-- ------------------------------------------------------------------------------ CURDATE(), CURTIME(), and NOW() FUNCTIONS -------------------------------------------------------------------- --
+-- CURDATE(): Gives us current date.
+-- CURTIME(): Gives us current time.
+-- NOW(): Gives us current date-time.
+
+INSERT INTO people ( name, birthdate, birthtime, birthdt ) VALUES ( 'Toaster', CURDATE(), CURTIME(), NOW() );
+INSERT INTO people ( name, birthdate, birthtime, birthdt ) VALUES ( 'Microwave', CURRENT_DATE, CURRENT_TIME, NOW() );
+SELECT * FROM people;
+DELETE FROM people WHERE name='Microwave';
+SELECT * FROM people;
+
+-- Functions and constants to return us the current date.
+SELECT CURRENT_DATE;
+SELECT CURDATE() AS CURRENTDATE;
+
+-- Functions and constants to return us the current time.
+SELECT CURRENT_TIME;
+SELECT CURTIME() AS CURRENTTIME;
+
+-- Functions and constants to return us the current datetime.
+SELECT NOW() AS DATETIME;
+
+-- ------------------------------------------------------------------------------ FORMATTING DATE -------------------------------------------------------------------- --
+-- There are a lot of DATE and TIME functions on MySQL documentation if we need something we can just to documentation whenever needed.
+-- https://dev.mysql.com/doc/refman/8.4/en/date-and-time-functions.html ( May be updated on documentation site of not able to reach the site, please Google it. )
+
+SELECT name, birthdate FROM people;
+
+-- DAY()
+SELECT name, birthdate, DAY( birthdate ) FROM people;
+
+-- DAYNAME()
+SELECT name, birthdate, DAYNAME( birthdate ) FROM people;
+
+-- DAYOFWEEK
+SELECT name, birthdate, DAYOFWEEK( birthdate ) FROM people;
+
+-- DAYOFYEAR
+SELECT name, birthdate, DAYOFYEAR( birthdate ) FROM people;
+
+-- MONTHNAME
+SELECT name, birthdate, MONTHNAME( birthdate ) FROM people;
+
+-- When we use these methods on the birthtime, we do get the warning and the result returns NULL / arbitrary value. Try running below command to be sure
+SELECT name, birthtime, DAY( birthtime ) FROM people;
+SELECT name, birthtime, DAYNAME( birthtime ) FROM people;
+SELECT name, birthtime, DAYOFWEEK( birthtime ) FROM people;
+SELECT name, birthtime, DAYOFYEAR( birthtime ) FROM people;
+
+
+-- All these methods do work on DATETIME. Try running below queries to verify.
+SELECT name, birthdt, DAY( birthdt ) FROM people;
+SELECT name, birthdt, DAYNAME( birthdt ) FROM people;
+SELECT name, birthdt, DAYOFWEEK( birthdt ) FROM people;
+SELECT name, birthdt, DAYOFYEAR( birthdt ) FROM people;
+SELECT name, birthdt, MONTHNAME( birthdt ) FROM people;
+
+-- Let's try out some functions which work with TIME.
+-- HOUR
+SELECT name, birthtime, HOUR( birthtime ) FROM people;
+
+-- MINUTE
+SELECT name, birthtime, MINUTE( birthtime ) FROM people;
+
+-- SECOND
+SELECT name, birthtime, SECOND( birthtime ) FROM people;
+
+-- Use the methods just discussed and achieve this: "April 21 2017 06 PM"
+-- There is a better way to achieve this, but let's try and use what we know so far.
+-- 2017-04-21
+SELECT CONCAT( MONTHNAME( '2017-04-21' ), ' ', DAYOFMONTH( '2017-04-21' ), ' ', YEAR( '2017-04-21' ), ' ', HOUR( '06:00:00' ), ' PM.') AS my_date_format;
+SELECT CONCAT( MONTHNAME( birthdt ), ' ', DAYOFMONTH( birthdate ), ' ', YEAR( birthdate ), ' ', HOUR( birthtime ) ) AS my_date_format FROM people;
+
+-- How we can achive the result for formatting date? There is a function to achiev that, it is called DATE_FORMAT( DATE, format )
+-- https://dev.mysql.com/doc/refman/8.4/en/date-and-time-functions.html#function_date-format
+-- We provide 2 arguments to the DATE_FORMAT methods, first argument being date, and second parameter is format specifier.
+SELECT DATE_FORMAT( birthdate, '%W %M %Y' ) FROM people;
+SELECT DATE_FORMAT( birthdate, '%W-%M-%Y' ) FROM people;
+SELECT DATE_FORMAT( birthdate, '%W%M%Y' ) FROM people;
+
+SELECT DATE_FORMAT( birthdt, 'Was born on a %D, the day was %W' ) FROM people;
+SELECT DATE_FORMAT( birthdt, '%m/%d/%y' ) FROM people; -- '03/12/98'
+SELECT DATE_FORMAT( birthdt, '%m/%d/%Y' ) FROM people; -- '03/12/1998'
+
+-- There is something called time formatter as well, this also works in a similar manner.
+SELECT DATE_FORMAT( birthdt, '%m/%d/%Y at %h:%m' ) FROM people; -- '03/12/1998 at 09:03'
+
+-- ------------------------------------------------------------------------------ DATE ARITHMETIC -------------------------------------------------------------------- --
