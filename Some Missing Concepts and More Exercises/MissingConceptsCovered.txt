@@ -1,5 +1,6 @@
-1. AND, OR, and NOT operators and examples exercises
-2. IN operator and exercises
-3. BETWEEN operator and exercises
-4. REGEXP operator and exercises
-5. IS NULL operator and exercises
+A. Missing_Operator.sql
+  1. AND, OR, and NOT operators and examples exercises
+  2. IN operator and exercises
+  3. BETWEEN operator and exercises
+  4. REGEXP operator and exercises
+  5. IS NULL operator and exercises
