@@ -109,3 +109,26 @@ SELECT DATE_FORMAT( birthdt, '%m/%d/%Y' ) FROM people; -- '03/12/1998'
 SELECT DATE_FORMAT( birthdt, '%m/%d/%Y at %h:%m' ) FROM people; -- '03/12/1998 at 09:03'
 
 -- ------------------------------------------------------------------------------ DATE ARITHMETIC -------------------------------------------------------------------- --
+-- For date arithmetic we are going through some of the methods provided my MySQL.
+
+-- DATEDIFF( expr1, expr2 ): Return the number of days
+SELECT * FROM people;
+SELECT DATEDIFF( NOW(), birthdate ) FROM people;
+SELECT name, birthdate, DATEDIFF( CURDATE(), birthdate ) FROM people;
+
+-- DATE_ADD( date/datetime, INTERVAL, temporal INTERVAL expression ) / DATE_SUB( date/datetime, INTERVAL, temporal interval expression )
+-- Temporal Interval Expression: https://dev.mysql.com/doc/refman/8.4/en/expressions.html#temporal-intervals
+SELECT name, birthdt, DATE_ADD( birthdt, INTERVAL 1 MONTH ) FROM people;
+SELECT name, birthdt, DATE_ADD( birthdt, INTERVAL 10 SECOND ) FROM people;
+SELECT name, birthdt, DATE_ADD( birthdt, INTERVAL 3 QUARTER ) FROM people;
+
+-- +/-: Instead of DATE_ADD or DATE_SUB we can use +/-
+SELECT name, birthdt, birthdt + INTERVAL 1 MONTH FROM people;
+SELECT name, birthdt, birthdt - INTERVAL 5 MONTH FROM people;
+
+-- We can not combile mulltiple add/remove suppose for month and time at one go in DATE_ADD or DATE_SUB.
+-- This can be achieve by +/-. Refer example below.
+SELECT name, birthdt, birthdt + INTERVAL 15 MONTH + INTERVAL 10 SECOND FROM people;
+SELECT name, birthdt, birthdt + INTERVAL 15 MONTH + INTERVAL 10 HOUR FROM people;
+
+-- ------------------------------------------------------------------------------ WORKING WITH TIMESTAMPS -------------------------------------------------------------------- --
