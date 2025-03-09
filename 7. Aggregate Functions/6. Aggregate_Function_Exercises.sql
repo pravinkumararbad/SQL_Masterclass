@@ -20,9 +20,8 @@ SELECT CONCAT( author_fname, ' ', author_lname ) AS writer FROM books WHERE page
 
 SELECT CONCAT( author_fname, ' ', author_lname ) AS writer FROM books ORDER BY CHAR_LENGTH( title ) DESC LIMIT 1;
 SELECT CONCAT( author_fname, ' ', author_lname ) AS writer FROM books ORDER BY pages DESC LIMIT 1;
-SELECT * FROM books;
+SELECT * FROM books ORDER BY released_year;
 
 -- Make this happen
 -- Year #Books avg_pages
 SELECT released_year AS Year, COUNT( title ) AS '#Books', AVG ( pages ) avg_books FROM books GROUP BY released_year ORDER BY released_year ASC;
-SELECT released_year, pages FROM books GROUP BY released_year ORDER BY released_year ASC;
