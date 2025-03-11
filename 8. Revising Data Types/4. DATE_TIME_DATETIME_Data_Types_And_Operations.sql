@@ -132,3 +132,58 @@ SELECT name, birthdt, birthdt + INTERVAL 15 MONTH + INTERVAL 10 SECOND FROM peop
 SELECT name, birthdt, birthdt + INTERVAL 15 MONTH + INTERVAL 10 HOUR FROM people;
 
 -- ------------------------------------------------------------------------------ WORKING WITH TIMESTAMPS -------------------------------------------------------------------- --
+-- Timestamps are referred to maintain time when we do something.
+-- TIMESTAMP is also a datatype in SQL
+
+-- Let's compare DATETIME and TIMESTAMP:
+-- DATETIME and TIMESTAMP are both used for values that contain both date and time parts.
+-- The main difference comes when we discuss on the range this data type supports.
+-- DATETIME: 1000-01-01 00:00:00 to 9999-12-31 23:59:59
+-- TIMESTAMP: 1970-01-01 00:00:01 to 2038-01-19 03:14:07
+
+CREATE TABLE comments ( content VARCHAR( 100 ), created_at TIMESTAMP DEFAULT NOW() );
+-- What is DEFAULT: We do not have to manually update the values while adding a new record as this will be taking the value of NOW time by default.
+
+INSERT INTO comments ( content ) VALUES ( 'LOL! This is so funny.' );
+INSERT INTO comments ( content ) VALUES ( 'I found this interesting.' );
+
+SELECT * FROM comments;
+
+INSERT INTO comments ( content ) VALUES ( 'nljkasdbjvbasD.' );
+SELECT * FROM comments ORDER BY created_at DESC;
+
+-- There is an interesting keyword we are introducing now ON UPDATE
+-- When the row/content is changed update the created_at TIMESTAMP.
+-- CREATE TABLE comments2 ( content VARCHAR( 100 ), created_at INT DEFAULT 1 ON UPDATE 2 );
+
+CREATE TABLE comments2 ( content VARCHAR( 100 ), created_at TIMESTAMP DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP );
+INSERT INTO comments2 ( content ) VALUES ( 'LOL! This is so funny.' );
+INSERT INTO comments2 ( content ) VALUES ( 'Add an entry for example.' );
+
+SELECT * FROM comments2;
+-- content                       created_at
+-- 'LOL! This is so funny.'     '2025-03-11 23:06:36'
+-- 'Add an entry for example.'  '2025-03-11 23:06:37'
+
+-- Let's update an entry, this will update the created_at value as we are using ON UPDATE.
+UPDATE comments2 SET content='Alas! This is so sad.' WHERE content='LOL! This is so funny.';
+SELECT * FROM comments2;
+
+-- content                       created_at
+-- 'Alas! This is so sad.'      '2025-03-11 23:09:44'
+-- 'Add an entry for example.'  '2025-03-11 23:06:37'
+
+-- Let's try one more example.
+CREATE TABLE comments3 ( content VARCHAR( 100 ), created_at TIMESTAMP DEFAULT NOW(), last_updated TIMESTAMP DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP );
+INSERT INTO comments3 ( content ) VALUES ( 'LOL! This is so funny.' );
+INSERT INTO comments3 ( content ) VALUES ( 'Add an entry for example.' );
+
+SELECT * FROM comments3;
+-- 'LOL! This is so funny.      '2025-03-11 23:11:50'  '2025-03-11 23:11:50'
+-- 'Add an entry for example.'  '2025-03-11 23:12:00'  '2025-03-11 23:12:00'
+
+
+UPDATE comments3 SET content='Alas! This is so sad.' WHERE content='LOL! This is so funny.';
+SELECT * FROM comments3;
+-- 'LOL! This is so funny.      '2025-03-11 23:11:50'  '2025-03-11 23:12:58'
+-- 'Add an entry for example.'  '2025-03-11 23:12:00'  '2025-03-11 23:12:00'
