@@ -9,3 +9,6 @@ What we will cover in this?
 4. CRUD Exercises
 5. SQL String Functions
 6. Refining Queried Data
+7. Aggregate Functions
+8. Rivising Data Types
+9. Logical Operators
