@@ -146,3 +146,30 @@ SELECT title,
            ELSE '20th Century Lit'
        END AS GENRE
 FROM books;
+
+-- Write a query to select books and mark start based on the quantities available.
+-- 0-50: *
+-- 50-100: **
+-- 100+: ***
+SELECT title,
+       stock_quantity,
+       CASE
+           WHEN stock_quantity BETWEEN 0 AND 50 THEN '*'
+           WHEN stock_quantity BETWEEN 51 AND 100 THEN '**'
+           WHEN stock_quantity BETWEEN 101 AND 150 THEN '***'
+           ELSE '****'
+       END AS stock
+FROM books
+ORDER BY stock;
+
+-- We can achieve this by updating logic, by changing sequence and using the proper login with logical operators and making it shorter.
+SELECT title,
+       stock_quantity,
+       CASE
+           WHEN stock_quantity <= 50 THEN '*'
+           WHEN stock_quantity <= 100 THEN '**'
+           WHEN stock_quantity <= 150 THEN '***'
+           ELSE '****'
+       END AS stock
+FROM books
+ORDER BY stock;
