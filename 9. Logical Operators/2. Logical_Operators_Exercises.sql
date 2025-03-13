@@ -22,11 +22,13 @@ SELECT * FROM books WHERE author_lname='Lahiri' && released_year > 2000;
 -- Select all books with page count between 100 and 200
 SELECT * FROM books WHERE pages >= 100 AND pages <= 200;
 SELECT * FROM books WHERE pages >= 100 && pages <= 200;
-SELECT * FROM books WHERE pages BETWEEN 100 AND 200;
+SELECT * FROM books WHERE pages BETWEEN 100 AND 200; -- Between considers values inclusive of the start and end value like [ 100-200 ]
 
 -- Select all books where author_lname starts with a 'C' or and 'S'
 SELECT * FROM books WHERE author_lname LIKE 'c%' OR author_lname LIKE 'S%';
 SELECT * FROM books WHERE author_lname LIKE 'c%' || author_lname LIKE 'S%';
+SELECT * FROM books WHERE SUBSTR( author_lname, 1, 1) = 'C' || SUBSTR( author_lname, 1, 1) = 'S';
+SELECT * FROM books WHERE SUBSTR( author_lname, 1, 1) IN ( 'C', 'S' );
 
 -- If title contains 'stories' -> Short Stories
 -- Just Kids and A Heartbreaking Work -> Memoir
@@ -35,8 +37,7 @@ SELECT title,
        author_lname,
        CASE
            WHEN title LIKE '%stories%' THEN 'Short Stories'
-           WHEN title LIKE '%just kids%'
-                OR title LIKE '%A Heartbreaking Work%' THEN 'Memoir'
+           WHEN title LIKE 'just kids' OR title LIKE '%A Heartbreaking Work%' THEN 'Memoir'
            ELSE 'Novel'
        END AS TYPE
 FROM books;
