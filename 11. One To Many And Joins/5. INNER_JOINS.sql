@@ -23,3 +23,7 @@ SELECT first_name, last_name, order_date, amount FROM customers JOIN orders ON o
 -- Both queries below are logically identical. When the INNER keyword is omitted, it is implicit.
 SELECT * FROM orders INNER JOIN customers ON customers.id = orders.customer_id;
 SELECT * FROM orders JOIN customers ON customers.id = orders.customer_id;
+
+-- ---------------------------------------------------------------------------------- INNER JOINS WITH GROUP BY ------------------------------------------------------------------------ --
+-- Select first_name, last_name, and cummuative sum of shopping done till date for  each customer.
+SELECT first_name, last_name, SUM(amount) AS total FROM customers JOIN orders ON orders.customer_id = customers.id GROUP BY first_name, last_name ORDER BY total DESC;
