@@ -29,3 +29,34 @@ SHOW WARNINGS;
 
 SELECT 59/0;
 SHOW WARNINGS; -- Now we wont see any warning as we have set the session mode ommiting ERROR_FOR_DIVISION_BY_ZERO setting.
+
+-- ------------------------------------------------------------------------------ STRICT TRANS TABLE SQL MODES -------------------------------------------------------------------- --
+-- This means STRICT TRANSACTIONAL TABLE.
+-- This mode should be enabled by default. Let's check.
+SELECT @@GLOBAL.sql_mode;
+
+-- What does this STRICT TRANS TABLE mode mean.
+-- Strict mode controls how MySQL handles invalid or missing values in data-change statements such as INSERT or UPDATE. A value can be invalid for several reasons.
+-- E.g., it might have the wrong data type for the column, or it might be out of range, etc.
+-- Strict mode also affects DDL statements such as CREATE TABLE.
+SELECT @@SESSION.sql_mode;
+
+use tv_db;
+DESC reviews;
+--  Field         Type            Null    Key   Default  Extra
+-- ---------------------------------------------------------------------- --
+-- 'id'           'int'           'NO',  'PRI'   NULL    'auto_increment'
+-- 'rating'       'decimal(3,1)'  'NO',  ''      NULL    ''
+-- 'series_id'    'int'           'NO'   'MUL'   NULL    ''
+-- 'reviewer_id'  'int'           'NO'   'MUL'   NULL    ''
+
+-- Lets try an incorrect statement by inserting a string for the rating field of integer.
+-- We should get an error and we do, Error Code: 1366. Incorrect decimal value: 'Hi' for column 'rating' at row 1
+INSERT INTO reviews ( rating ) VALUES ('Hi');
+
+-- If we turn the sql mode STRICT TRANS TABLE off let's see what happens.
+SET session sql_mode='';
+SELECT @@SESSION.sql_mode;
+INSERT INTO reviews ( rating ) VALUES ('Hi');
+
+-- As we updated the reviews table if we check the value, it does not insert the field with 'Hi' but the default value for rating that is 0.0
