@@ -12,3 +12,7 @@ What we will cover in this?
 7. Aggregate Functions
 8. Rivising Data Types
 9. Logical Operators
+10. Constraints & ALTER TABLE
+11. One To Many And Joins
+12. Many To Many Rel
+13. Views, Modes, & More!
